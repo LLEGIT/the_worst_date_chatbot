@@ -26,7 +26,7 @@ A Discord chatbot game inspired by Squeezie (French YouTuber).
 ## Setup
 1. Clone the repo
 2. Install dependencies: `pip install -r requirements.txt`
-3. Set your Discord bot token in the code
+3. Copy `.env.dist` to `.env` and set your Discord bot token in the `.env` file (DISCORD_BOT_TOKEN=...)
 4. Make sure Ollama is running locally
 5. Run the bot: `python le_pire_date.py`
 
