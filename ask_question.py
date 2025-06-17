@@ -43,11 +43,23 @@ class RedFlagGame:
         )
         return await self.ask_llm(prompt)
 
-    async def judge_answer(self, question, answer):
+    async def generate_values(self):
         prompt = (
-            f"Dans le contexte d'un jeu de rencontre amoureuse, voici la question : '{question}'. "
-            f"Le joueur a répondu : '{answer}'. "
-            "Est-ce une réponse redflag (mauvais signe pour la relation) ? Réponds uniquement par 'redflag' ou 'ok'."
+            "Génère une liste de 2 valeurs fondamentales (principes de vie, convictions, priorités) pour une femme fictive dans le contexte d'une rencontre amoureuse. "
+            "Retourne uniquement la liste, chaque valeur sur une ligne, sans commentaire ni explication."
+        )
+        values_text = await self.ask_llm(prompt)
+        return [v.strip('-• ').strip() for v in values_text.split('\n') if v.strip()]
+
+    async def judge_answer(self, question, answer):
+        # Compare the answer to the persona's values
+        if not hasattr(self, 'persona_values'):
+            self.persona_values = await self.generate_values()
+
+        prompt = (
+            f"Voici la liste des valeurs fondamentales de la personne : {self.persona_values}. "
+            f"Question : '{question}'. Réponse du joueur : '{answer}'. "
+            "Si la réponse du joueur va à l'encontre d'une de ces valeurs, réponds uniquement par 'redflag'. Sinon, réponds 'ok'. Sois tolérant, n'attribue un redflag que si la réponse est vraiment incompatible avec les valeurs listées."
         )
         result = await self.ask_llm(prompt)
         return 'redflag' in result.lower()
