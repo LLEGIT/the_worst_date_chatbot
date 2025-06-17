@@ -65,7 +65,7 @@ async def on_message(message):
             return
         user_states[user_id]['question_idx'] += 1
         if user_states[user_id]['question_idx'] >= 5:
-            await message.channel.send("Bravo, tu as survécu au pire date !")
+            await message.channel.send("Bravo, tu as survécu au pire date ! Nous allons pouvoir nous découvrir plus profondément.")
             del user_states[user_id]
             return
         # Next question

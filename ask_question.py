@@ -40,6 +40,10 @@ class RedFlagGame:
             "Génère une question fermée pour un jeu de rencontre amoureuse. "
             "La question doit avoir deux choix possibles : oui ou non. "
             "Ne donne que la question, pas de commentaire ni d'explication."
+            " La question doit être adaptée à une femme fictive dans le contexte d'une rencontre amoureuse. "
+            "La question doit pouvoir être répondue par 'oui' ou 'non'. "
+            "Tutoie lapersonne et utilise un ton amical. "
+            "Renvoie uniquement la question, sans aucun autre texte ni formatage spécial."
         )
         return await self.ask_llm(prompt)
 
@@ -85,7 +89,8 @@ class RedFlagGame:
                 print("Tu as eu 2 red flags, la partie est terminée !")
                 break
         if self.redflags < self.max_redflags:
-            print("Bravo, tu as survécu au pire date !")
+            print(
+                "Bravo, tu as survécu au pire date ! Nous allons pouvoir nous découvrir plus profondément.")
 
 
 if __name__ == "__main__":
